@@ -11,20 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 22
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build the application
-        run: yarn build
-
-      - name: E2E Test the application
-        run: yarn e2e:test
+      - uses: ./.github/workflows/ci.yml
+        secrets: inherit
 
       - name: Build the package
         run: |
@@ -52,6 +40,4 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
 
-      - run: npm publish ./pack-artifact/package.tgz
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: echo success
