@@ -422,7 +422,6 @@ export class BrowserCodeReader {
    */
   public static releaseAllStreams() {
     if (BrowserCodeReader.streamTracker.length !== 0) {
-      // tslint:disable-next-line:no-console
       BrowserCodeReader.streamTracker.forEach((mediaStream) => {
         mediaStream.getTracks().forEach((track) => track.stop());
      });
@@ -1032,9 +1031,9 @@ export class BrowserCodeReader {
     /**
      * The HTML canvas element context.
      */
-    let captureCanvasContext: any;
+    let captureCanvasContext: CanvasRenderingContext2D | null;
     try {
-        captureCanvasContext = captureCanvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D;
+        captureCanvasContext = captureCanvas.getContext('2d', { willReadFrequently: true });
     } catch (e) {
         captureCanvasContext = captureCanvas.getContext('2d');
     }
